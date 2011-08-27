@@ -23,8 +23,8 @@
     "url": "https://github.com/nko2/nodeasaurus.git"
   },
   "dependencies": {
-    "express": "2.4.6",
-    "jade": ">= 0.0.1",
-    "sass": ">= 0.0.1"
+    "express": ">=2.4.6",
+    "jade": ">=0.0.1",
+    "sass": ">=0.0.1"
   }
 }
