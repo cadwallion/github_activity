@@ -6,37 +6,30 @@
 var express = require('express');
 
 var app = module.exports = express.createServer();
-nko = require('nko')('GFFNV/wLZMvzznOi');
+var nko = require('nko')('GFFNV/wLZMvzznOi');
 
-// Configuration
 
-app.configure(function(){
-  app.set('views', __dirname + '/views');
-  app.set('view engine', 'jade');
-  app.use(express.bodyParser());
-  app.use(express.methodOverride());
-  app.use(express.cookieParser());
-  app.use(express.session({ secret: 'your secret here' }));
-  app.use(express.compiler({ src: __dirname + '/public', enable: ['sass'] }));
-  app.use(app.router);
-  app.use(express.static(__dirname + '/public'));
+// APP.JS
+var Server = {},
+    express = require('express'),
+    path = require('path'),
+    sys = require('sys'),
+    application_root = __dirname;
+
+global.Server = Server;
+Server.root = application_root;
+global.app = express.createServer();
+
+Server.setup = require('./config/setup').setup({
+  app: app,
+  mongoose: require('mongoose'),
+  db_url:  'mongodb://nodeapp:ag0rassaur@staff.mongohq.com:10021/nko2_agorasaurus',
+  express: express,
+  resource: require('express-resource'),
+  paths: {
+    views : path.join(application_root, "app", "views"),
+    root : path.join(application_root, "public"),
+    controllers : path.join(application_root, "app", "controllers"),
+    models : path.join(application_root, "app", "models")
+  }
 });
-
-app.configure('development', function(){
-  app.use(express.errorHandler({ dumpExceptions: true, showStack: true })); 
-});
-
-app.configure('production', function(){
-  app.use(express.errorHandler()); 
-});
-
-// Routes
-
-app.get('/', function(req, res){
-  res.render('index', {
-    title: 'Express'
-  });
-});
-
-app.listen(3000);
-console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
