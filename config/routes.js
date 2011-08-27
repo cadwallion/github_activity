@@ -3,8 +3,7 @@ module.exports.loadRoutes = function (app) {
 
   app.resource(Server.controllers.test);
 
-  var oauthResp = app.resource("oauth", Server.controllers.oauth);
-  oauthResp.map('get', '/callback', Server.controllers.oauth.callback);
-  oauthResp.map('get', '/connect', Server.controllers.oauth.connect);
+  app.get('/oauth/callback', Server.controllers.oauth.callback);
+  app.get('/oauth/connect', Server.contollers.oauth.connect);
 
 }
