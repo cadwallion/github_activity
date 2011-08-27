@@ -1,3 +1,4 @@
+/*
 var mongoose = require("mongoose");
 var sys = require("sys");
 var schema = new mongoose.Schema({
@@ -8,3 +9,4 @@ var schema = new mongoose.Schema({
  });
 
 global.User = module.exports = mongoose.model('User', schema);
+*/
