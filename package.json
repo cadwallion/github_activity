@@ -1,0 +1,29 @@
+{
+  "name": "octo_tracker",
+  "description": "Getting your arms around projects",
+  "maintainers: [
+    {
+      "name":  "Andrew Nordman",
+      "email": "cadwallion@gmail.com"
+    },
+    {
+      "name": "Logan Koester",
+      "email": "logan@lkoester.com"
+    },
+    {
+      "name": "Vitor Pellegrino",
+      "email": "vitorp@gmail.com"
+    }
+  ],
+  "version": "0.0.1",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nko2/nodeasaurus.git"
+  },
+  "dependencies": {
+    "express": "2.4.6",
+    "jade": ">= 0.0.1",
+    "sass": ">= 0.0.1"
+  }
+}
