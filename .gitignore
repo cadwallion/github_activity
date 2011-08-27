@@ -1,2 +1,9 @@
-node_modules
-public/**/*.css
+.DS_Store
+public/stylesheets/compiled/*
+*.swp
+*.swn
+*.swm
+*.swo
+.sass-cache
+*.rdb
+node_modules/*
