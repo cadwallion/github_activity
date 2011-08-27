@@ -4,16 +4,10 @@ module.exports.setup = function(o) {
       app = o.app, 
       mongoose = o.mongoose,
       resource = o.resource,
-      oauth = require('oauth'),
+      everyauth = require('everyauth'),
       express = o.express;
- 
-  Server.oauth = new oauth.OAuth("https://github.com/login/oauth/authorize",
-                            "https://github.com/login/oauth/access_token",
-                            o.oauth.consumerKey,
-                            o.oauth.consumerSecret,
-                            "1.0",
-                            "http://nodeasaurus.nko2.nodeknockout.com/oauth/callback",
-                            "HMAC-SHA1"));
+
+
 
   Server.paths = o.paths;
   global.db = mongoose.connect(o.db_url);
@@ -36,6 +30,15 @@ module.exports.setup = function(o) {
     Server.models[name] = resource;
   });
 
+  everyauth.github
+  .appId(o.oauth.consumerKey)
+  .appSecret(o.oauth.consumerSecret)
+  .findOrCreateUser(function (session, accessToken, , accessTokenExtra, githubUserMetadata) {
+    // create user logic here
+  })
+  .redirectPath('/');
+ 
+
   require('./routes').loadRoutes(app);
 
  
@@ -46,6 +49,7 @@ module.exports.setup = function(o) {
     app.use(express.methodOverride());
     app.use(express.cookieParser());
     app.use(express.session({ secret: 'omgsekretag0rapass' }));
+    app.use(everyauth.middleware());
     app.use(express.compiler({ src: o.paths.root, enable: ['sass'] }));
     app.use(app.router);
     app.use(express.static(o.paths.root));
