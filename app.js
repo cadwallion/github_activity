@@ -6,6 +6,7 @@
 var express = require('express');
 
 var app = module.exports = express.createServer();
+nko = require('nko')('GFFNV/wLZMvzznOi');
 
 // Configuration
 
