@@ -4,7 +4,16 @@ module.exports.setup = function(o) {
       app = o.app, 
       mongoose = o.mongoose,
       resource = o.resource,
+      oauth = require('oauth'),
       express = o.express;
+ 
+  Server.oauth = new oauth.OAuth("https://github.com/login/oauth/authorize",
+                            "https://github.com/login/oauth/access_token",
+                            o.oauth.consumerKey,
+                            o.oauth.consumerSecret,
+                            "1.0",
+                            "http://nodeasaurus.nko2.nodeknockout.com/oauth/callback",
+                            "HMAC-SHA1"));
 
   Server.paths = o.paths;
   global.db = mongoose.connect(o.db_url);
@@ -29,6 +38,7 @@ module.exports.setup = function(o) {
 
   require('./routes').loadRoutes(app);
 
+ 
   app.configure(function() { 
     app.set('view engine', 'jade');
     app.set('views', o.paths.views);

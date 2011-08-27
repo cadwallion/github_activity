@@ -27,6 +27,10 @@ Server.setup = require('./config/setup').setup({
   db_url:  'mongodb://nodeapp:ag0rassaur@staff.mongohq.com:10021/nko2_agorasaurus',
   express: express,
   resource: require('express-resource'),
+  oauth: {
+    consumerKey: "1e0284b9d4f4f9a45a54",
+    consumerSecret: "e48a030e7dd19f989bac35e03778bd4afebd6753"
+  },
   paths: {
     views : path.join(application_root, "app", "views"),
     root : path.join(application_root, "public"),
