@@ -127,8 +127,6 @@ function init() {
       $('#filters').tabs('disable', 2);
     }
 
-    // Filters can be toggled on and off
-    $('.filter').button();
     $('#button-filter-save').button();
     $('#button-filter-save').click(saveFilterSet); 
 
