@@ -23,7 +23,7 @@ module.exports.loadRoutes = function (app) {
     }
   }
   
-  app.get('/activities', [authRequired], Server.controllers.activities.index);
+  app.post('/activities', Server.controllers.activities.index);
 
   app.resource(Server.controllers.index);
 }

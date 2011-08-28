@@ -97,7 +97,7 @@ function init() {
       $.ajax({
         type: "POST", 
         url:  "/activities",
-        data: JSON.stringify(ActiveFilters), 
+        data: {projects: JSON.stringify(ActiveFilters) }, 
         success: function(res){ 
           console.log(res)
         }
