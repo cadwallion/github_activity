@@ -3,4 +3,6 @@
     h3
       a.expand #{project.owner}/#{project.name}
     .activity-item-details
-      p test
+      - for activity in project.activities
+        p
+          a(href=activity.author.url) #{activity.author.login}
