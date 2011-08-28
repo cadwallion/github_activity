@@ -14,17 +14,15 @@ module.exports = {
         project.name = key.split('/')[1];
         project.activities = [];
         for (commit in data[key]) {
-          console.log(commit);
           var activity = new Object();
-          activity.author = data[key][commit].author;
-          console.log(activity.author);
+          activity.url = data[key][commit].url;
+          activity.message = data[key][commit].message;
 
           project.activities.push(activity);
-        }
+        };
         projects.push(project);
       };
 
-      console.log(projects);
       res.render('activities/results.jade', {
         layout: false,
         projects: projects
