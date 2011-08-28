@@ -92,6 +92,10 @@ function init() {
         var i = $.inArray(this.name, ActiveFilters)
         if (i != -1) ActiveFilters.splice(i, 1);
       }
+
+      $.get('/activities', function(data) {
+        console.log(data);
+      });
       console.log(ActiveFilters);
     });
 }
