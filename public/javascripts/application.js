@@ -93,8 +93,14 @@ function init() {
         if (i != -1) ActiveFilters.splice(i, 1);
       }
 
-      $.get('/activities', function(data) {
-        console.log(data);
+      $.ajax({
+        type: "POST", 
+        url:  "/activities",
+        data: ActiveFilters, 
+        success: function(res){ 
+          console.log(res)
+        }
+
       });
       console.log(ActiveFilters);
     });
