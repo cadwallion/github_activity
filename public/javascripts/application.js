@@ -2,6 +2,21 @@ google.load("jquery", "1.6.2");
 google.load("jqueryui", "1.8.16");
 var ActiveFilters = [];
 
+function update_filter_results() {
+  $.ajax({
+    type: "POST", 
+    url:  "/activities",
+    data: { projects: JSON.stringify(ActiveFilters) }, 
+    success: function(res){ 
+      console.log(res)
+      $('ul#activity .load').fadeOut('slow', function(){
+        $('ul#activity').empty();
+        $('ul#activity').append(res);
+      });
+    }
+  });
+}
+
 /* Fetch a list of 'filters' (people or repositories)
    and render the filter buttonsets for a given tab.
 
@@ -47,10 +62,42 @@ function load_filters(tab, url, buttons_per_set, activationStrategy){
 
     tab.fadeIn('slow');
 
+    // Load the initial results
+    update_filter_results();
+
   }).error(function(){
     tab.children('.load').hide();
     console.log('Failed to load filters list');
   });
+}
+
+function saveFilterSet(){
+  var win = $('<div><p>Enter your filter name</p></div>');
+  var userInput = $('<input type="text" style="width:100%"></input>');
+  userInput.appendTo(win);
+
+  win.dialog({
+    'buttons' : {
+      'Ok' : function() {
+        $(this).dialog('close');
+        $.ajax({
+          type: "POST", 
+          url:  "/filtersets",
+          data: { 
+            'filter_name' : $(userInput).val(), 
+            'projects'    : JSON.stringify(ActiveFilters) 
+          },
+          success: function(res){ 
+            console.log(res)
+          }
+        });
+      },
+      'Cancel' : function(){
+        $(this).dialog('close');
+      }
+    }
+  });
+
 }
 
 function init() {
@@ -93,47 +140,8 @@ function init() {
         var i = $.inArray(this.name, ActiveFilters)
         if (i != -1) ActiveFilters.splice(i, 1);
       }
-
-      $.ajax({
-        type: "POST", 
-        url:  "/activities",
-        data: { projects: JSON.stringify(ActiveFilters) }, 
-        success: function(res){ 
-          console.log(res)
-        }
-
-      });
-      console.log(ActiveFilters);
+      update_filter_results();
     });
-}
-
-function saveFilterSet(){
-  var win = $('<div><p>Enter your filter name</p></div>');
-  var userInput = $('<input type="text" style="width:100%"></input>');
-  userInput.appendTo(win);
-
-  win.dialog({
-    'buttons' : {
-      'Ok' : function() {
-        $(this).dialog('close');
-        $.ajax({
-          type: "POST", 
-          url:  "/filtersets",
-          data: { 
-            'filter_name' : $(userInput).val(), 
-            'projects'    : JSON.stringify(ActiveFilters) 
-          },
-          success: function(res){ 
-            console.log(res)
-          }
-        });
-      },
-      'Cancel' : function(){
-        $(this).dialog('close');
-      }
-    }
-  });
-
 }
 
 google.setOnLoadCallback(init);
