@@ -1,45 +1,34 @@
 google.load("jquery", "1.6.2");
 google.load("jqueryui", "1.8.16");
 
-function arrayChunk(array, size) {
-    var start = 0, result = [], chunk = [];
-    while((chunk = array.slice(start, start += size)).length) {
-        result.push(chunk);
-    }
-    return result;
-}
+/* Fetch a list of 'filters' (people or repositories)
+   and render the filter buttonsets for a given tab.
 
-function shuffleArray(oldArray) {
-	var newArray = oldArray.slice();
- 	var len = newArray.length;
-	var i = len;
-	 while (i--) {
-	 	var p = parseInt(Math.random()*len);
-		var t = newArray[i];
-  		newArray[i] = newArray[p];
-	  	newArray[p] = t;
- 	}
-	return newArray; 
-};
-
-function load_trending_repos(){
-  $.getJSON('/trending_repos.json', function(result){
-    var buttons_per_set = 5;
+   tab(jQuery): DOM object to render the object to
+   url(String): A JSON url that responds with an array of people or repos
+   buttons_per_set(Integer): How many buttons to display on a row
+   activationStrategy(String|false): One of 'all', 'random', or false
+*/
+function load_filters(tab, url, buttons_per_set, activationStrategy){
+  $.getJSON(url, function(result){
     var repo_chunks = arrayChunk(result, buttons_per_set);
-    $('#featured-repos-filters').fadeOut('slow', function(){
-      $('#featured-repos-filters .load').hide();
+    tab.fadeOut('slow', function(){
+      tab.children('.load').hide();
     
       $.each(repo_chunks, function(k, repos){
-        $('#featured-repos-filters').append('<div class=".set"></div>');
-        var current_set = $('#featured-repos-filters :last');
+        tab.append('<div class=".set"></div>');
+        var current_set = tab.children().last();
 
         $.each(repos, function(k,repo){
           // Generate the markup
           var repo_slug = repo.replace(/\/|\./, '_');
 
-          // Randomize which trending repos are active
           var active = '';
-          if (shuffleArray([true, false])[0]) active = 'checked="true"';
+          if (activationStrategy == 'random') {
+            if (shuffleArray([true, false])[0]) active = 'checked="true"';
+          } else if (activationStrategy == 'all') {
+            active = 'checked="true"';
+          }
 
           var input = '<input class="filter" id="' + repo_slug + '" name="' + repo_slug + '" type="checkbox" ' + active + ' />';
           var label = '<label for="' + repo_slug + '">' + repo + '</label>';
@@ -52,11 +41,11 @@ function load_trending_repos(){
 
     });
 
-    $('#featured-repos-filters').fadeIn('slow');
+    tab.fadeIn('slow');
 
   }).error(function(){
-    $('#featured-repos-filters .load').hide();
-    console.log('Failed to load trending repositories list');
+    tab.children('.load').hide();
+    console.log('Failed to load filters list');
   });
 }
 
@@ -66,11 +55,19 @@ function init() {
     // Organize filters with a tabbed interface
     $('#filters').tabs();
 
+    loggedIn = false; // TODO Replace this mock with https://github.com/visionmedia/express-expose
+
+    // Disable personal tabs unless loggedIn
+    if(!loggedIn) {
+      $('#filters').tabs('disable', 1);
+      $('#filters').tabs('disable', 2);
+    }
+
     // Filters can be toggled on and off
     $('.filter').button();
 
-    // Create filter buttons for trending repositories
-    load_trending_repos();
+    // Create filter buttons for trending repositories (the default tab)
+    load_filters( $('#trending-repos-filters'), '/trending_repos.json', 5, 'random' );
 
     // Glow logo on hover
     $('.logo').addGlow({
