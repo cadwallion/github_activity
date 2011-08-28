@@ -33,8 +33,9 @@ module.exports.setup = function(o) {
   everyauth.github
   .appId(o.oauth.consumerKey)
   .appSecret(o.oauth.consumerSecret)
-  .findOrCreateUser(function (session, accessToken, , accessTokenExtra, githubUserMetadata) {
+  .findOrCreateUser(function (session, accessToken, accessTokenExtra, githubUserMetadata) {
     // create user logic here
+    console.log(githubUserData);
   })
   .redirectPath('/');
  
