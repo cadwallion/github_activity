@@ -132,7 +132,7 @@ function init() {
 
     // Disable personal tabs unless loggedIn
     if(auth.loggedIn) {
-      load_filters( $('#my-people-filters'), '/trending_repos.json', 5, 'all' );
+      //load_filters( $('#my-people-filters'), '/trending_repos.json', 5, 'all' );
       load_filters( $('#my-repos-filters'), '/projects/filters', 5, 'all' );
     } else {
       $('#filters').tabs('disable', 1);
