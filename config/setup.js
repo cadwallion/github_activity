@@ -3,6 +3,7 @@ module.exports.setup = function(o) {
       fs = require('fs'),
       app = o.app, 
       resource = o.resource,
+      expose = require('express-expose'),
       mongoose = o.mongoose,
       everyauth = require('everyauth'),
       express = o.express;
@@ -94,6 +95,7 @@ module.exports.setup = function(o) {
   require('./routes').loadRoutes(app);
 
   everyauth.helpExpress(app);
+
 
   app.listen(o.port, function() {
     console.log('Agorassaur ready to total ownage and crushing business');
