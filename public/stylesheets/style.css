@@ -21,6 +21,17 @@ h1 {
   height: 30px;
   padding: 5px;}
 
+iframe {
+  border: none;
+  color: #CC0000;}
+
+#voting-container {
+  width: 200px;
+  height: 70px;
+  text-align: center;}
+#voting-container p {
+  font-size: 12px;}
+
 #about {
   margin-bottom: 40px;}
 #about h1.logo {

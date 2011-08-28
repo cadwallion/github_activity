@@ -16,7 +16,7 @@ module.exports = {
         for (commit in data[key]) {
           var activity = new Object();
           activity.url = data[key][commit].url;
-          activity.message = data[key][commit].message;
+          activity.message = data[key][commit].commit.message;
 
           project.activities.push(activity);
         };
