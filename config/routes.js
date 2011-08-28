@@ -35,6 +35,9 @@ module.exports.loadRoutes = function (app) {
     res.expose(authData, 'auth');           
     next();
   });
+
+  app.post('/projects', [authRequired], Server.controllers.projects.index);
+  app.get('/projects/filters', [authRequired], Server.controllers.projects.filters);
   app.post('/activities', Server.controllers.activities.index);
   app.post('/filtersets', Server.controllers.filtersets.create);
 

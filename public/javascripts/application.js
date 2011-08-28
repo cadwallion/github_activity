@@ -41,6 +41,7 @@ function load_filters(tab, url, buttons_per_set, activationStrategy){
 
         $.each(repos, function(k,repo){
           // Generate the markup
+          console.log(repo);
           var repo_slug = repo.replace(/\/|\./, '_');
 
           var active = '';
@@ -132,7 +133,7 @@ function init() {
     // Disable personal tabs unless loggedIn
     if(auth.loggedIn) {
       load_filters( $('#my-people-filters'), '/trending_repos.json', 5, 'all' );
-      load_filters( $('#my-projects-filters'), '/trending_repos.json', 5, 'all' );
+      load_filters( $('#my-repos-filters'), '/projects/filters', 5, 'all' );
     } else {
       $('#filters').tabs('disable', 1);
       $('#filters').tabs('disable', 2);
