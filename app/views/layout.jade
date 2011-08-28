@@ -21,8 +21,10 @@ html
         - if(!everyauth.loggedIn)
           a(href="/auth/github") Login at github
         - else
-          p(style="font-size: 0.9em") You are logged in at github as 
-            = everyauth.github.user.login
+          p(style="font-size: 0.9em") Logged github as 
+            = everyauth.github.user.login 
+
+            a(href="/logout", style="margin-left: 0.5em;")  Logout 
         - 
     .content
       != body
