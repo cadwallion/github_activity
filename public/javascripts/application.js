@@ -12,7 +12,6 @@ var ActiveFilters = [];
 */
 function load_filters(tab, url, buttons_per_set, activationStrategy){
   tab.empty();
-  console.log(tab);
   $.getJSON(url, function(result){
     var repo_chunks = arrayChunk(result, buttons_per_set);
     tab.fadeOut('slow', function(){
