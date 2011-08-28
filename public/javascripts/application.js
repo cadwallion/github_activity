@@ -118,6 +118,10 @@ function init() {
 
     load_filters( $('#trending-repos-filters'), '/trending_repos.json', 5, 'random' );
 
+    // Save button for filter sets
+    $('#button-filter-save').button();
+    $('#button-filter-save').click(saveFilterSet); 
+
     // Disable personal tabs unless loggedIn
     if(loggedIn) {
       load_filters( $('#my-people-filters'), '/trending_repos.json', 5, 'all' );
@@ -125,10 +129,8 @@ function init() {
     } else {
       $('#filters').tabs('disable', 1);
       $('#filters').tabs('disable', 2);
+      $('#button-filter-save').button({disabled: true});
     }
-
-    $('#button-filter-save').button();
-    $('#button-filter-save').click(saveFilterSet); 
 
     // Manage an array of active filters
     $('.filter').live('change', function(){
