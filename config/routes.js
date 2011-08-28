@@ -16,5 +16,14 @@ module.exports.loadRoutes = function (app) {
     }
   }
 
+  function provides(type) {
+    return function(req, res, next){
+      if (req.accepts(type)) return next();
+      next('route');
+    }
+  }
+  
+  app.get('/activities', [authRequired], Server.controllers.activities.index);
+
   app.resource(Server.controllers.index);
 }
