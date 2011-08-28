@@ -9,12 +9,21 @@ module.exports.loadRoutes = function (app) {
        app.get('/test/url', [authRequired], Server.controllers.test.url_action)
    */
   function authRequired(req, res, next) {
-    if (req.loggedIn()) {
+    if (req.loggedIn) {
       next();
     } else {
       res.redirect('/auth/github');
     }
   }
+
+  function provides(type) {
+    return function(req, res, next){
+      if (req.accepts(type)) return next();
+      next('route');
+    }
+  }
+  
+  app.get('/activities', [authRequired], Server.controllers.activities.index);
 
   app.resource(Server.controllers.index);
 }
