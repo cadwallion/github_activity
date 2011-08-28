@@ -1,5 +1,6 @@
 google.load("jquery", "1.6.2");
 google.load("jqueryui", "1.8.16");
+var ActiveFilters = [];
 
 /* Fetch a list of 'filters' (people or repositories)
    and render the filter buttonsets for a given tab.
@@ -10,6 +11,8 @@ google.load("jqueryui", "1.8.16");
    activationStrategy(String|false): One of 'all', 'random', or false
 */
 function load_filters(tab, url, buttons_per_set, activationStrategy){
+  tab.empty();
+  console.log(tab);
   $.getJSON(url, function(result){
     var repo_chunks = arrayChunk(result, buttons_per_set);
     tab.fadeOut('slow', function(){
@@ -30,11 +33,13 @@ function load_filters(tab, url, buttons_per_set, activationStrategy){
             active = 'checked="true"';
           }
 
+          // Add to the ActiveFilters array
+          if (active == 'checked="true"') ActiveFilters.push(repo_slug);
+
           var input = '<input class="filter" id="' + repo_slug + '" name="' + repo_slug + '" type="checkbox" ' + active + ' />';
           var label = '<label for="' + repo_slug + '">' + repo + '</label>';
 
-          current_set.append(input);
-          current_set.append(label);
+          current_set.append(input + label);
         });
         current_set.buttonset();
       });
@@ -51,14 +56,27 @@ function load_filters(tab, url, buttons_per_set, activationStrategy){
 
 function init() {
   $(document).ready(function(){
+    loggedIn = false; // TODO Replace this mock with https://github.com/visionmedia/express-expose
+
+      // Glow logo on hover
+      $('.logo').addGlow({
+        radius: 5,
+        textColor: '#a7c2db',
+        haloColor: '#fffaaa',
+        duration: 300
+      })
+    });
 
     // Organize filters with a tabbed interface
     $('#filters').tabs();
 
-    loggedIn = false; // TODO Replace this mock with https://github.com/visionmedia/express-expose
+    load_filters( $('#trending-repos-filters'), '/trending_repos.json', 5, 'random' );
 
     // Disable personal tabs unless loggedIn
-    if(!loggedIn) {
+    if(loggedIn) {
+      load_filters( $('#my-people-filters'), '/trending_repos.json', 5, 'all' );
+      load_filters( $('#my-projects-filters'), '/trending_repos.json', 5, 'all' );
+    } else {
       $('#filters').tabs('disable', 1);
       $('#filters').tabs('disable', 2);
     }
@@ -66,17 +84,16 @@ function init() {
     // Filters can be toggled on and off
     $('.filter').button();
 
-    // Create filter buttons for trending repositories (the default tab)
-    load_filters( $('#trending-repos-filters'), '/trending_repos.json', 5, 'random' );
-
-    // Glow logo on hover
-    $('.logo').addGlow({
-      radius: 5,
-      textColor: '#a7c2db',
-      haloColor: '#fffaaa',
-      duration: 300
-    })
-  });
+    // Manage an array of active filters
+    $('.filter').live('change', function(){
+      if(this.value) {
+        if ($.inArray(this.name, ActiveFilters) == -1) ActiveFilters.push(this.name);
+      } else {
+        var i = $.inArray(this.name, ActiveFilters)
+        if (i != -1) ActiveFilters.splice(i, 1);
+      }
+      console.log(ActiveFilters);
+    });
 }
 
 google.setOnLoadCallback(init);
