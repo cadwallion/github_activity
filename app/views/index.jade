@@ -1,30 +1,28 @@
 #about
   h1.logo= title
-  p 
-    | #{title} allows you to filter your Github News Feed 
-    | to improve the signal to noise.
+  p #{title} filters your Github News feed to improve the s:n
 
-#filters-accordion
-  #h3
-    a('href'='#') Filters
-  #filters
-    ul
-      li
-        a('href'='#featured-repos-filters') Featured Repos
-      li
-        a('href'='#trending-repos-filters') Trending Repos
-      li
-        a('href'='#my-people-filters') My People
-      li
-        a('href'='#my-repos-filters') My Projects
-    #featured-repos-filters
-    #trending-repos-filters
-      input#test4.filter('type'='checkbox', 'checked'='false')
-      label('for'='test4') Rails
-    #my-people-filters
-    #my-repos-filters
+h1 1) Adjust your filters
+#filters
+  ul
+    li
+      a('href'='#featured-repos-filters') Featured Repos
+    li
+      a('href'='#trending-repos-filters') Trending Repos
+    li
+      a('href'='#my-people-filters') My People
+    li
+      a('href'='#my-repos-filters') My Projects
+  #featured-repos-filters
+  #trending-repos-filters
+    input#test4.filter('type'='checkbox', 'checked'='false')
+    label('for'='test4') Rails
+  #my-people-filters
+  #my-repos-filters
+
 br
-#activity-accordion
-  #h3
-    a('href'='#') Activity
+
+h1 2) Monitor activity (realtime)
+.ui-widget.ui-widget-content.ui-corner-all
   #activity
+    p Filtered news feed data should be displayed here... 

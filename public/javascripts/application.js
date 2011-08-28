@@ -9,6 +9,19 @@ function arrayChunk(array, size) {
     return result;
 }
 
+function shuffleArray(oldArray) {
+	var newArray = oldArray.slice();
+ 	var len = newArray.length;
+	var i = len;
+	 while (i--) {
+	 	var p = parseInt(Math.random()*len);
+		var t = newArray[i];
+  		newArray[i] = newArray[p];
+	  	newArray[p] = t;
+ 	}
+	return newArray; 
+};
+
 function load_trending_repos(){
   $.getJSON('/trending_repos.json', function(result){
     var buttons_per_set = 5;
@@ -21,7 +34,12 @@ function load_trending_repos(){
       $.each(repos, function(k,repo){
         // Generate the markup
         var repo_slug = repo.replace(/\/|\./, '_');
-        var input = '<input class="filter" id="' + repo_slug + '" name="' + repo_slug + '" type="checkbox" checked="true" />';
+
+        // Randomize which trending repos are active
+        var active = '';
+        if (shuffleArray([true, false])[0]) active = 'checked="true"';
+
+        var input = '<input class="filter" id="' + repo_slug + '" name="' + repo_slug + '" type="checkbox" ' + active + ' />';
         var label = '<label for="' + repo_slug + '">' + repo + '</label>';
 
         current_set.append(input);
@@ -35,14 +53,6 @@ function load_trending_repos(){
 
 function init() {
   $(document).ready(function(){
-    
-    // Toggle display of filters and activity
-    $('#filters-accordion').accordion({
-        collapsible: true
-    });
-    $('#activity-accordion').accordion({
-        collapsible: true
-    });
 
     // Organize filters with a tabbed interface
     $('#filters').tabs();
@@ -52,6 +62,13 @@ function init() {
 
     // Create filter buttons for trending repositories
     load_trending_repos();
+
+    $('.logo').addGlow({
+      radius: 10,
+      textColor: '#ffffff',
+      haloColor: '#fffaaa',
+      duration: 300
+    });
   });
 }
 

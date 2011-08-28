@@ -1,15 +1,33 @@
 body {
   padding: 40px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;}
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #000;
+  background-repeat: no-repeat;
+  color: #fff;}
 
 a {
   color: #00B7FF;}
 
-.logo {
+p {
+  font-size: 1.2em;}
+
+h1 {
   font-family: 'Voltaire', sans-serif;;}
 
-h1.logo {
-  font-size: 4.5em;}
+#about {
+  margin-bottom: 40px;}
+#about h1.logo {
+  color: #d9d9d9;
+  font-size: 4.5em;
+  margin-bottom: 5px;}
+#about p {
+  font-weight: bolder;}
 
 #filters {
-  text-align: center;}
+  text-align: center;
+  margin-bottom: 50px;}
+
+#activity {
+  min-height: 300px;
+  padding: 20px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;}
