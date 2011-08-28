@@ -35,6 +35,7 @@ module.exports.setup = function(o) {
   everyauth.github
   .appId(o.oauth.consumerKey)
   .appSecret(o.oauth.consumerSecret)
+  .scope('repo')
   .findOrCreateUser(function (session, accessToken, accessTokenExtra, githubUserData) {
     var promise = this.Promise();
     User.findOne({githubId: githubUserData.id}, function(err, user) { 
