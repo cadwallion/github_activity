@@ -39,7 +39,7 @@
             url = '/repos/' + r.replace("_","/") + '/commits';
             console.log('accessing url ' + url);
             self.send(url, function(data) { 
-              repoData[r] = JSON.parse(data);
+              repoData[r.replace("_","/")] = JSON.parse(data);
               console.log('REPO ' + r + 'added to data');
               processed = processed + 1;
               if (processed == total) { 
