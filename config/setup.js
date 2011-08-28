@@ -2,13 +2,10 @@ module.exports.setup = function(o) {
   var sys = require('sys'),
       fs = require('fs'),
       app = o.app, 
-      mongoose = o.mongoose,
       resource = o.resource,
+      mongoose = o.mongoose,
       everyauth = require('everyauth'),
       express = o.express;
-
-  everyauth.everymodule.moduleTimeout(-1); // to turn off timeouts
-
 
   Server.paths = o.paths;
   global.db = mongoose.connect(o.db_url);
@@ -70,19 +67,15 @@ module.exports.setup = function(o) {
   })
   .redirectPath('/');
  
-
-  require('./routes').loadRoutes(app);
-
- 
   app.configure(function() { 
     app.use(express.favicon());
     app.set('view engine', 'jade');
     app.set('views', o.paths.views);
+    app.use(express.favicon());
     app.use(express.bodyParser());
     app.use(express.methodOverride());
     app.use(express.cookieParser());
-    app.use(express.favicon());
-    app.use(express.session({ secret: 'omgsekretag0rapass' }));
+    app.use(express.session({ secret: 'fuck' }));
     app.use(everyauth.middleware());
     app.use(express.compiler({ src: o.paths.root, enable: ['sass'] }));
     app.use(app.router);
@@ -96,6 +89,8 @@ module.exports.setup = function(o) {
   app.configure('production', function(){
     app.use(express.errorHandler()); 
   });
+  
+  require('./routes').loadRoutes(app);
 
   // TODO Enable this once Cad resolves https://github.com/bnoguchi/everyauth/issues/27
   //everyauth.helpExpress(app);
