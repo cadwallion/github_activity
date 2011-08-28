@@ -1,4 +1,38 @@
-h1= title
-p #{title} allows you to filter your Github News Feed to improve the signal to noise.
+#about
+  h1.logo= title
+  p #{title} allows you to filter your Github News Feed to improve the signal to noise.
 
-a.tag('href'='google.com') Google
+#filters-accordion
+  #h3
+    a('href'='#') Filters
+  #filters
+    ul
+      li
+        a('href'='#featured-repos-filters') Featured Repos
+      li
+        a('href'='#trending-repos-filters') Trending Repos
+      li
+        a('href'='#my-people-filters') My People
+      li
+        a('href'='#my-repos-filters') My Projects
+    #featured-repos-filters
+      input#test1.filter('type'='checkbox', 'checked'='false')
+      label('for'='test1') Rails
+      input#test2.filter('type'='checkbox', 'checked'='false')
+      label('for'='test2') Rails
+      input#test3.filter('type'='checkbox', 'checked'='false')
+      label('for'='test3') Rails
+    #trending-repos-filters
+      input#test4.filter('type'='checkbox', 'checked'='false')
+      label('for'='test4') Rails
+      input#test5.filter('type'='checkbox', 'checked'='false')
+      label('for'='test5') Rails
+      input#test6.filter('type'='checkbox', 'checked'='false')
+      label('for'='test6') Rails
+    #my-people-filters
+    #my-repos-filters
+br
+#activity-accordion
+  #h3
+    a('href'='#') Activity
+  #activity
