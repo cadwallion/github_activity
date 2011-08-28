@@ -7,6 +7,7 @@ module.exports.setup = function(o) {
       everyauth = require('everyauth'),
       express = o.express;
 
+  everyauth.everymodule.moduleTimeout(-1); // to turn off timeouts
 
 
   Server.paths = o.paths;
@@ -33,9 +34,35 @@ module.exports.setup = function(o) {
   everyauth.github
   .appId(o.oauth.consumerKey)
   .appSecret(o.oauth.consumerSecret)
-  .findOrCreateUser(function (session, accessToken, accessTokenExtra, githubUserMetadata) {
-    // create user logic here
-    console.log(githubUserData);
+  .findOrCreateUser(function (session, accessToken, accessTokenExtra, githubUserData) {
+    var promise = this.Promise();
+    User.findOne({githubId: githubUserData.id}, function(err, user) { 
+      if (err) { 
+        console.log('Error finding User: ' + err);
+        promise.fail(err);
+        return;
+      }
+      if (user) {
+        promise.fulfill(user);
+      } else {
+        siteUser = new User({githubId: githubUserData.id});
+        siteUser.name = githubUserData.name;
+        siteUser.login = githubUserData.login;
+        siteUser.email = githubUserData.email;
+
+        siteUser.save(function(err) {
+          if (err) { 
+            console.log("Error saving user: " + err) ;
+            promise.fail(err);
+            return;
+          } else {
+            promise.fulfill(siteUser);
+            return;
+          }
+        });
+      }
+    });
+    return promise;
   })
   .redirectPath('/');
  

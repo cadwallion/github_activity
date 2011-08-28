@@ -1,12 +1,10 @@
-/*
 var mongoose = require("mongoose");
 var sys = require("sys");
 var schema = new mongoose.Schema({
-    name  :  { type: String, default: 'hahaha' }
-  , age   :  { type: Number, min: 18, index: true }
-  , bio   :  { type: String, match: /[a-z]/ }
-  , date  :  { type: Date, default: Date.now }
+  githubId:  { type: Number, index: true },
+  name    :  { type: String },
+  login   :  { type: String, index: true },
+  email   :  { type: String },
  });
 
 global.User = module.exports = mongoose.model('User', schema);
-*/
