@@ -80,6 +80,9 @@ function saveFilterSet(){
     'buttons' : {
       'Ok' : function() {
         $(this).dialog('close');
+        if (auth.loggedIn) {
+          console.log("FUKYASEAKING");
+        }
         $.ajax({
           type: "POST", 
           url:  "/filtersets",
@@ -102,7 +105,7 @@ function saveFilterSet(){
 
 function init() {
   $(document).ready(function(){
-    loggedIn = false; // TODO Replace this mock with https://github.com/visionmedia/express-expose
+    //loggedIn = false; // TODO Replace this mock with https://github.com/visionmedia/express-expose
 
       // Glow logo on hover
       $('.logo').addGlow({
@@ -123,7 +126,7 @@ function init() {
     $('#button-filter-save').click(saveFilterSet); 
 
     // Disable personal tabs unless loggedIn
-    if(loggedIn) {
+    if(auth.loggedIn) {
       load_filters( $('#my-people-filters'), '/trending_repos.json', 5, 'all' );
       load_filters( $('#my-projects-filters'), '/trending_repos.json', 5, 'all' );
     } else {
