@@ -18,8 +18,14 @@ html
   body 
     .header
       .login 
-        a(href="/auth/github") Login at github
+        - if(!everyauth.loggedIn)
+          a(href="/auth/github") Login at github
+        - else
+          p(style="font-size: 0.9em") Logged github as 
+            = everyauth.github.user.login 
 
+            a(href="/logout", style="margin-left: 0.5em;")  Logout 
+        - 
     .content
       != body
 
