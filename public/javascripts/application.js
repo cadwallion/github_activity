@@ -8,9 +8,9 @@ function update_filter_results() {
     url:  "/activities",
     data: { projects: JSON.stringify(ActiveFilters) }, 
     success: function(res){ 
-      $('ul#activity .load').fadeOut('slow', function(){
-        $('ul#activity').empty();
-        $('ul#activity').append(res);
+      $('#activity .load').fadeOut('slow', function(){
+        $('#activity').empty();
+        $('#activity').append(res);
         $('.activity-item').accordion();
       });
     }
@@ -141,6 +141,11 @@ function init() {
         if (i != -1) ActiveFilters.splice(i, 1);
       }
       update_filter_results();
+    });
+
+    // Quickest Hack to getting Accordion functionality working (cheat)
+    $('#activity .activity-item h3 a.expand').live('click', function(){
+      $(this).closest('h3').siblings('.activity-item-details').first().toggle('fast');
     });
 }
 

@@ -40,7 +40,10 @@ p#filtering-actions  {
   padding: 1em;
   font-color: green;}
 
-ul#activity {
+#activity {
   min-height: 30px;
   padding: 20px;
   list-style-type: none;}
+#activity .activity-item .activity-item-details {
+  padding-left: 10px;
+  display: none;}
