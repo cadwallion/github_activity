@@ -11,8 +11,5 @@ a {
 h1.logo {
   font-size: 4.5em;}
 
-#filters .ui-button {
-  margin-left: 5px;
-  margin-right: 5px;
-  padding: 5px;
-  font-size: 1.2em;}
+#filters {
+  text-align: center;}
