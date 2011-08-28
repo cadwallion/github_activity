@@ -91,7 +91,7 @@ module.exports.setup = function(o) {
     app.use(express.errorHandler()); 
   });
 
-  app.set('view engine', 'jade');
+  everyauth.helpExpress(app);
 
   app.listen(o.port, function() {
     console.log('Agorassaur ready to total ownage and crushing business');
