@@ -35,6 +35,10 @@ h1 {
 #filters {
   text-align: center;}
 
+p#filtering-actions  {
+  text-align: right;
+  font-size: 1.4em;}
+
 #activity {
   min-height: 30px;
   padding: 20px;
