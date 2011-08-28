@@ -3,14 +3,17 @@ google.load("jqueryui", "1.8.16");
 var ActiveFilters = [];
 
 function update_filter_results() {
+  $('#activity_container .welcome strong').hide();
+  $('#activity').empty();
+  var load = $('#activity_container .welcome .load');
+  load.show();
   $.ajax({
     type: "POST", 
     url:  "/activities",
     data: { projects: JSON.stringify(ActiveFilters) }, 
-    success: function(res){ 
-      $('#activity .load').fadeOut('slow', function(){
-        $('#activity').empty();
-        $('#activity').append(res);
+    success: function(res){
+      load.fadeOut('slow', function(){
+        $('#activity').html(res);
         $('.activity-item').accordion();
       });
     }
@@ -122,7 +125,7 @@ function init() {
     // Update button applies changes to filter sets and grabs
     // the new data
     $('#button-filter-update').button();
-    $('#button-filter-update').click(function(){
+    $('#button-filter-update').live('click', function(){
       update_filter_results();
     }); 
 

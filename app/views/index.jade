@@ -19,13 +19,13 @@ h1 1) Adjust your filters
 
 p(id='filtering-actions')
   input(type='submit',class='button update', id='button-filter-update', value='Update')
-  input(type='submit',class='button save', id='button-filter-save', value='Save filters')
+  input(type='button',class='button save', id='button-filter-save', value='Save filters')
 
 br
 
 h1 2) Browse recent activity
-.ui-widget.ui-widget-content.ui-corner-all
+#activity_container.ui-widget.ui-widget-content.ui-corner-all
+  .welcome
+    strong Set some filters and click update
+    .load(style='display: none')
   #activity
-    .welcome
-      strong Set some filters and click update
-      .load(style='display: none')
