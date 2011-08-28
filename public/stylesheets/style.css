@@ -51,3 +51,6 @@ p#filtering-actions  {
 #activity .activity-item .activity-item-details {
   padding-left: 10px;
   display: none;}
+#activity .welcome {
+  font-weight: bolder;
+  text-align: center;}
