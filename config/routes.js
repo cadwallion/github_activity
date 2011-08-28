@@ -22,7 +22,19 @@ module.exports.loadRoutes = function (app) {
       next('route');
     }
   }
-  
+
+  app.all("/*", function(req, res, next) {
+    authData = {};
+
+    authData.user = req.user;
+    authData.loggedIn = req.loggedIn;
+    if (req.session) {
+      authData.auth = req.session.auth;
+    }
+    res.expose(authData, 'auth');
+    next();
+  });
+
   app.post('/activities', Server.controllers.activities.index);
   app.post('/filtersets', Server.controllers.filtersets.create);
 
