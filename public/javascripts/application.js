@@ -8,9 +8,9 @@ function update_filter_results() {
     url:  "/activities",
     data: { projects: JSON.stringify(ActiveFilters) }, 
     success: function(res){ 
-      $('ul#activity .load').fadeOut('slow', function(){
-        $('ul#activity').empty();
-        $('ul#activity').append(res);
+      $('#activity .load').fadeOut('slow', function(){
+        $('#activity').empty();
+        $('#activity').append(res);
         $('.activity-item').accordion();
       });
     }
@@ -118,6 +118,10 @@ function init() {
 
     load_filters( $('#trending-repos-filters'), '/trending_repos.json', 5, 'random' );
 
+    // Save button for filter sets
+    $('#button-filter-save').button();
+    $('#button-filter-save').click(saveFilterSet); 
+
     // Disable personal tabs unless loggedIn
     if(loggedIn) {
       load_filters( $('#my-people-filters'), '/trending_repos.json', 5, 'all' );
@@ -125,12 +129,8 @@ function init() {
     } else {
       $('#filters').tabs('disable', 1);
       $('#filters').tabs('disable', 2);
+      $('#button-filter-save').button({disabled: true});
     }
-
-    // Filters can be toggled on and off
-    $('.filter').button();
-    $('#button-filter-save').button();
-    $('#button-filter-save').click(saveFilterSet); 
 
     // Manage an array of active filters
     $('.filter').live('change', function(){
@@ -141,6 +141,11 @@ function init() {
         if (i != -1) ActiveFilters.splice(i, 1);
       }
       update_filter_results();
+    });
+
+    // Quickest Hack to getting Accordion functionality working (cheat)
+    $('#activity .activity-item h3 a.expand').live('click', function(){
+      $(this).closest('h3').siblings('.activity-item-details').first().toggle('fast');
     });
 }
 
