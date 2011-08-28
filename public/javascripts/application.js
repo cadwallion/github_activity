@@ -97,7 +97,7 @@ function init() {
       $.ajax({
         type: "POST", 
         url:  "/activities",
-        data: {projects: JSON.stringify(ActiveFilters) }, 
+        data: { projects: JSON.stringify(ActiveFilters) }, 
         success: function(res){ 
           console.log(res)
         }
@@ -119,7 +119,10 @@ function saveFilterSet(){
         $.ajax({
           type: "POST", 
           url:  "/filtersets",
-          data: { 'filter_name' : $(userInput).val() },
+          data: { 
+            'filter_name' : $(userInput).val(), 
+            'projects'    : JSON.stringify(ActiveFilters) 
+          },
           success: function(res){ 
             console.log(res)
           }
