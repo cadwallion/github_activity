@@ -19,16 +19,20 @@ module.exports.setup = function(o) {
 
   files = fs.readdirSync(o.paths.controllers);
   files.forEach(function(file) {
-    resource = require(o.paths.controllers + "/" + file);
-    name = file.replace('.js', '')
-    Server.controllers[name] = resource;
+    if (file.match(/\.js$/)) {
+      resource = require(o.paths.controllers + "/" + file);
+      name = file.replace('.js', '')
+      Server.controllers[name] = resource;
+    }
   });
 
   files = fs.readdirSync(o.paths.models);
   files.forEach(function(file) {
-    resource = require(o.paths.models + "/" + file);
-    name = file.replace('.js', '')
-    Server.models[name] = resource;
+    if (file.match(/\.js$/)) {
+      resource = require(o.paths.models + "/" + file);
+      name = file.replace('.js', '')
+      Server.models[name] = resource;
+    }
   });
 
   everyauth.github
@@ -71,6 +75,7 @@ module.exports.setup = function(o) {
 
  
   app.configure(function() { 
+    app.use(express.favicon());
     app.set('view engine', 'jade');
     app.set('views', o.paths.views);
     app.use(express.bodyParser());
@@ -92,7 +97,8 @@ module.exports.setup = function(o) {
     app.use(express.errorHandler()); 
   });
 
-  everyauth.helpExpress(app);
+  // TODO Enable this once Cad resolves https://github.com/bnoguchi/everyauth/issues/27
+  //everyauth.helpExpress(app);
 
   app.listen(o.port, function() {
     console.log('Agorassaur ready to total ownage and crushing business');
