@@ -24,6 +24,7 @@ module.exports.loadRoutes = function (app) {
   }
   
   app.post('/activities', Server.controllers.activities.index);
+  app.post('/filtersets', Server.controllers.filtersets.create);
 
   app.resource(Server.controllers.index);
 }
