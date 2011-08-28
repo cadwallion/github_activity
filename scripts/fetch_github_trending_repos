@@ -1,0 +1,16 @@
+#!/usr/bin/env node
+
+var fs = require('fs');
+var sys = require('sys');
+var scraper = require('scraper');
+
+scraper('https://github.com/explore', function(err, jQuery) {
+    if (err) {throw err}
+    repos = jQuery('.ranked-repositories li h3').map(function() {
+      return(jQuery(this).text().trim().replace(/\s/g, ''));
+    }).get();
+
+    fs.writeFile('public/trending_repos.json', JSON.stringify(repos), function(err){
+      if(err) { sys.puts(err) } else { sys.puts('Trending repository list updated!') };
+    });
+});
