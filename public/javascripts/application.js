@@ -62,9 +62,6 @@ function load_filters(tab, url, buttons_per_set, activationStrategy){
 
     tab.fadeIn('slow');
 
-    // Load the initial results
-    update_filter_results();
-
   }).error(function(){
     tab.children('.load').hide();
     console.log('Failed to load filters list');
@@ -121,6 +118,13 @@ function init() {
     // Save button for filter sets
     $('#button-filter-save').button();
     $('#button-filter-save').click(saveFilterSet); 
+    
+    // Update button applies changes to filter sets and grabs
+    // the new data
+    $('#button-filter-update').button();
+    $('#button-filter-update').click(function(){
+      update_filter_results();
+    }); 
 
     // Disable personal tabs unless loggedIn
     if(loggedIn) {
@@ -140,7 +144,8 @@ function init() {
         var i = $.inArray(this.name, ActiveFilters)
         if (i != -1) ActiveFilters.splice(i, 1);
       }
-      update_filter_results();
+      // Using manual update for now
+      // update_filter_results();
     });
 
     // Quickest Hack to getting Accordion functionality working (cheat)
