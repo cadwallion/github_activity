@@ -92,8 +92,7 @@ module.exports.setup = function(o) {
   
   require('./routes').loadRoutes(app);
 
-  // TODO Enable this once Cad resolves https://github.com/bnoguchi/everyauth/issues/27
-  //everyauth.helpExpress(app);
+  everyauth.helpExpress(app);
 
   app.listen(o.port, function() {
     console.log('Agorassaur ready to total ownage and crushing business');
