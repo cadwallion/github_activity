@@ -76,6 +76,7 @@ module.exports.setup = function(o) {
     app.use(express.bodyParser());
     app.use(express.methodOverride());
     app.use(express.cookieParser());
+    app.use(express.favicon());
     app.use(express.session({ secret: 'omgsekretag0rapass' }));
     app.use(everyauth.middleware());
     app.use(express.compiler({ src: o.paths.root, enable: ['sass'] }));
