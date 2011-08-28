@@ -82,6 +82,8 @@ function init() {
 
     // Filters can be toggled on and off
     $('.filter').button();
+    $('#button-filter-save').button();
+    $('#button-filter-save').click(saveFilterSet); 
 
     // Manage an array of active filters
     $('.filter').live('change', function(){
@@ -103,6 +105,32 @@ function init() {
       });
       console.log(ActiveFilters);
     });
+}
+
+function saveFilterSet(){
+  var win = $('<div><p>Enter your filter name</p></div>');
+  var userInput = $('<input type="text" style="width:100%"></input>');
+  userInput.appendTo(win);
+
+  win.dialog({
+    'buttons' : {
+      'Ok' : function() {
+        $(this).dialog('close');
+        $.ajax({
+          type: "POST", 
+          url:  "/filtersets",
+          data: { 'filter_name' : $(userInput).val() },
+          success: function(res){ 
+            console.log(res)
+          }
+        });
+      },
+      'Cancel' : function(){
+        $(this).dialog('close');
+      }
+    }
+  });
+
 }
 
 google.setOnLoadCallback(init);
