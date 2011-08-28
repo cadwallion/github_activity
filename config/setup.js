@@ -33,7 +33,7 @@ module.exports.setup = function(o) {
   everyauth.github
   .appId(o.oauth.consumerKey)
   .appSecret(o.oauth.consumerSecret)
-  .findOrCreateUser(function (session, accessToken, , accessTokenExtra, githubUserMetadata) {
+  .findOrCreateUser(function (session, accessToken, accessTokenExtra, githubUserMetadata) {
     // create user logic here
   })
   .redirectPath('/');
@@ -62,6 +62,8 @@ module.exports.setup = function(o) {
   app.configure('production', function(){
     app.use(express.errorHandler()); 
   });
+
+  app.set('view engine', 'jade');
 
   app.listen(o.port, function() {
     console.log('Agorassaur ready to total ownage and crushing business');
