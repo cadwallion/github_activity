@@ -16,6 +16,5 @@ module.exports.loadRoutes = function (app) {
     }
   }
 
-  app.get('/activity', [authRequired], Server.controllers.activities.index);
   app.resource(Server.controllers.index);
 }
