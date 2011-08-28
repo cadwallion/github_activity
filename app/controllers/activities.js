@@ -16,11 +16,10 @@ module.exports = {
         projects.push(project);
       };
 
-
       console.log(projects);
       res.render('activities/results.jade', {
-          layout: false,
-          projects: projects
+        layout: false,
+        projects: projects
       });
     });
   }

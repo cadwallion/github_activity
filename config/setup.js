@@ -95,7 +95,7 @@ module.exports.setup = function(o) {
   require('./routes').loadRoutes(app);
 
   everyauth.helpExpress(app);
-
+  app.expose(app.settings, 'settings');
 
   app.listen(o.port, function() {
     console.log('Agorassaur ready to total ownage and crushing business');
