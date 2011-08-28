@@ -80,9 +80,6 @@ function saveFilterSet(){
     'buttons' : {
       'Ok' : function() {
         $(this).dialog('close');
-        if (auth.loggedIn) {
-          console.log("FUKYASEAKING");
-        }
         $.ajax({
           type: "POST", 
           url:  "/filtersets",

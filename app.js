@@ -4,6 +4,7 @@
  */
 
 var express = require('express');
+var expose = require('express-expose');
 
 var app = module.exports = express.createServer();
 var nko = require('nko')('GFFNV/wLZMvzznOi');
