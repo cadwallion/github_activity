@@ -8,10 +8,10 @@ function update_filter_results() {
     url:  "/activities",
     data: { projects: JSON.stringify(ActiveFilters) }, 
     success: function(res){ 
-      console.log(res)
       $('ul#activity .load').fadeOut('slow', function(){
         $('ul#activity').empty();
         $('ul#activity').append(res);
+        $('.activity-item').accordion();
       });
     }
   });
